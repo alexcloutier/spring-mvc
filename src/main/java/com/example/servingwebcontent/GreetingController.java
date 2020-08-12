@@ -13,7 +13,15 @@ public class GreetingController {
     //The name will be added to the model object... ultimately making it accessable to the view template
     @GetMapping("/greeting")
     public String greeting(@RequestParam(name="name", required=false,defaultValue="world") String name, Model model){
-        model.addAttribute("name", name);
-        return "greeting";
+        try{
+            model.addAttribute("name", name);
+            return "greeting";
+        }
+        catch (NullPointerException e){
+            System.out.println("Testing Done");
+            return "greeting";
+        }       
     }
+
+
 }
