@@ -1,0 +1,38 @@
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: TriggerTemplate
+metadata:
+  name: build-trigger
+spec:
+  params:
+    - name: SERVICE_ACCOUNT
+      description: trigger
+    - name: URL
+      description: http://ec2-3-96-94-51.ca-central-1.compute.amazonaws.com:3000/andrewnguyen/Spring_MVC_Gitea.Spring_MVC_Gitea.git
+    - name: REVISION
+      description: master
+    - name: NAMESPACE
+      description: spring-mvc
+  resourcetemplates:
+  - apiVersion: tekton.dev/v1beta1
+    kind: PipelineRun
+    metadata:
+      generateName: pipeline-run-from-trigger
+    spec:
+      serviceAccountName: $(params.SERVICE_ACCOUNT)
+      pipelineRef:
+        name: new-pipeline
+      resources:
+      - name: source
+        resourceSpec:
+          type: git
+          params:
+          - name: revision
+            value: $(params.REVISION)
+          - name: url
+            value: $(params.URL)
+      - name: image
+        resouceSpec:
+          type: image
+          params:
+          - name: url
+            value: image-registry.openshift-image-registry.svc:5000/$(params.NAMESPACE)/imagebook:latest

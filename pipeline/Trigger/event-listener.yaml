@@ -1,0 +1,12 @@
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: EventListener
+metadata:
+  name: event-listener
+spec:
+  serviceAccountName: trigger
+  triggers:
+  - name: push-build-trigger
+    template:
+      name: build-trigger
+    bindings:
+    - name: build-trigger-b
