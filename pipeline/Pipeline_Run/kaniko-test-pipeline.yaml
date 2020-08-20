@@ -1,0 +1,41 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: kaniko-test-pipeline
+spec:
+  workspaces:
+  - name: build-zone
+  params:
+  - name: git-url
+    description: url for the source code to be built
+  - name: image
+    description: reference of the image to build
+  - name: dockerfile
+    description: path to dockerfile once cloned
+  tasks:
+  - name: fetch-repository
+    taskRef:
+      name: git-clone
+    workspaces:
+    - name: output
+      workspace: build-zone
+    params:
+    - name: url
+      value: $(params.git-url)
+    - name: deleteExisting
+      value: "true"
+  - name: kaniko
+    taskRef:
+      name: kaniko
+    runAfter:
+    - fetch-repository
+    workspaces:
+    - name: source
+      workspace: build-zone
+    params:
+    - name: IMAGE
+      value: $(params.image)
+#    - name: DOCKERFILE
+#      value: $(params.dockerfile)
+    - name: EXTRA_ARGS
+      value: "--skip-tls-verify"

@@ -1,0 +1,15 @@
+apiVersion: tekton.dev/v1alpha1
+kind: TaskRun
+metadata:
+  name: source-to-image-run
+spec:
+  taskRef:
+    name: source-to-image
+  inputs:
+    resources:
+      - name: git-source
+        resourceRef:
+          name: mvc-repo
+    params:
+     - name: imageUrl
+       value: image-registry.openshift-image-registry.svc:5000/spring-mvc/imagebook

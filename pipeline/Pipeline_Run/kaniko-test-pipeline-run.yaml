@@ -1,0 +1,18 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: kaniko-test-pipeline-run-2-0
+spec:
+  pipelineRef:
+    name: kaniko-test-pipeline
+  params:
+  - name: git-url
+    value: http://ec2-3-96-94-51.ca-central-1.compute.amazonaws.com:3000/andrewnguyen/Spring_MVC_Gitea
+  - name: image
+    value: image-registry.openshift-image-registry.svc:5000/spring-pipeline/imagebook
+  - name: dockerfile
+    value: /workspace/output/Dockerfile
+  workspaces:
+  - name: build-zone
+    persistentVolumeClaim:
+        claimName: spring-pvc
