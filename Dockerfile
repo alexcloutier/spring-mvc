@@ -1,4 +1,4 @@
-FROM openjdk:11-oracle
+FROM ubuntu:latest
 MAINTAINER Andrew Nguyen (Andrew.Nguyen@cra-arc.gc.ca)
 WORKDIR /app
 
