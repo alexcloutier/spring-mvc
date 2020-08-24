@@ -5,10 +5,10 @@ metadata:
 spec:
   params:
   - name: URL
-    value: $(body.repository.clone_url)
+    value: http://ec2-3-96-94-51.ca-central-1.compute.amazonaws.com:3000/andrewnguyen/Spring_MVC_Gitea
   - name: REVISION
-    value: $(body.pull_request.head.sha)
+    value: master
   - name: NAMESPACE
-    value: spring-mvc
+    value: spring-pipeline
   - name: SERVICE_ACCOUNT
-    value: trigger
+    value: pipeline

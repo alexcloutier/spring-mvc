@@ -7,32 +7,32 @@ spec:
     - name: SERVICE_ACCOUNT
       description: trigger
     - name: URL
-      description: http://ec2-3-96-94-51.ca-central-1.compute.amazonaws.com:3000/andrewnguyen/Spring_MVC_Gitea.Spring_MVC_Gitea.git
-    - name: REVISION
-      description: master
+      description: url
+    - name: dockerfile
+      description: dockerfile to build from
     - name: NAMESPACE
-      description: spring-mvc
+      description: namespace
+    - name: image-registry
+      description: image location after build
+    - name: pvc
+      description: volume claim to be built on
   resourcetemplates:
   - apiVersion: tekton.dev/v1beta1
     kind: PipelineRun
     metadata:
-      generateName: pipeline-run-from-trigger
+      generateName: kaniko-test-pipeline-run-2-3
     spec:
       serviceAccountName: $(params.SERVICE_ACCOUNT)
       pipelineRef:
-        name: new-pipeline
-      resources:
+        name: kaniko-test-pipeline
+      params:
       - name: source
-        resourceSpec:
-          type: git
-          params:
-          - name: revision
-            value: $(params.REVISION)
-          - name: url
-            value: $(params.URL)
+        value: $(params.URL)
       - name: image
-        resouceSpec:
-          type: image
-          params:
-          - name: url
-            value: image-registry.openshift-image-registry.svc:5000/$(params.NAMESPACE)/imagebook:latest
+        value: $(params.image-registry)
+      - name: dockerfile
+        value: $(params.dockerfile)
+      workspaces:
+      - name: build-zone
+      persistantVolumeClaim:
+        claimName: $(params.pvc)
