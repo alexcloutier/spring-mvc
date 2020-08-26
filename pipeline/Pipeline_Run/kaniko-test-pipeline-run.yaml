@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
-  name: kaniko-test-pipeline-run-2-1
+  name: kaniko-test-pipeline-run-2-2
 spec:
   pipelineRef:
     name: kaniko-test-pipeline

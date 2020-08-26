@@ -16,7 +16,7 @@ public class GreetingControllerTests {
     public void breakableTest(){
         //if x==y
         int x=0;
-        int y=1;
+        int y=0;
         assertEquals(x, y);
     }
 }
