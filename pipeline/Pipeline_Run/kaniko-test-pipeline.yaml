@@ -35,7 +35,7 @@ spec:
     params:
     - name: IMAGE
       value: $(params.image)
-#    - name: DOCKERFILE
-#      value: $(params.dockerfile)
+    - name: DOCKERFILE
+      value: $(params.dockerfile)
     - name: EXTRA_ARGS
       value: "--skip-tls-verify"

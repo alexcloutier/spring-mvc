@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
-  name: kaniko-test-pipeline-run-2-3
+  name: kaniko-test-pipeline-run-2-9
 spec:
   pipelineRef:
     name: kaniko-test-pipeline
@@ -11,7 +11,7 @@ spec:
   - name: image
     value: image-registry.openshift-image-registry.svc:5000/spring-pipeline/imagebook
   - name: dockerfile
-    value: /workspace/output/Dockerfile
+    value: ./Dockerfile
   workspaces:
   - name: build-zone
     persistentVolumeClaim:

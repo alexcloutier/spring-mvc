@@ -14,4 +14,5 @@ RUN mvn dependency:resolve
 
 #copy the rest of the file and build
 COPY . ./
+RUN mvn test
 RUN mvn package

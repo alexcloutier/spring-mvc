@@ -35,12 +35,6 @@ spec:
     description: Digest of the image just built.
 
   steps:
-  - name: test
-    workingDir: $(workspaces.source.path)
-    image: stedolan/jq
-    script: |
-      echo "Hello World"
-      ls -la
   - name: build-and-push
     workingDir: $(workspaces.source.path)
     image: $(params.BUILDER_IMAGE)
